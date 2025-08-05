@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Piso Exclusivo en el Albaicín - Granada</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #2c1810 0%, #8b4513 100%);
+            color: white;
+            padding: 2rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://via.placeholder.com/1200x600/8b4513/ffffff?text=Vista+del+Albaicín') center/cover;
+            opacity: 0.3;
+            z-index: -1;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+
+        .header-content h1 {
+            font-size: 3.5rem;
+            font-weight: 300;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .header-content p {
+            font-size: 1.3rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .price-tag {
+            display: inline-block;
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            border: 1px solid rgba(255,255,255,0.2);
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        /* Navigation */
+        nav {
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            padding: 1rem 0;
+        }
+
+        nav li {
+            margin: 0 2rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            background: #8b4513;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Hero Gallery */
+        .hero-gallery {
+            padding: 4rem 0;
+            background: linear-gradient(45deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            grid-template-rows: 300px 300px;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .gallery-item {
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.02);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .gallery-item:first-child {
+            grid-row: span 2;
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+            color: white;
+            padding: 1rem;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+
+        /* Property Details */
+        .property-details {
+            padding: 4rem 0;
+            background: white;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .property-description h2 {
+            color: #8b4513;
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 300;
+        }
+
+        .property-description p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            color: #666;
+            line-height: 1.8;
+        }
+
+        .features-list {
+            list-style: none;
+            margin: 2rem 0;
+        }
+
+        .features-list li {
+            padding: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            font-size: 1.1rem;
+        }
+
+        .features-list li i {
+            color: #8b4513;
+            margin-right: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .specs-card {
+            background: linear-gradient(135deg, #8b4513 0%, #d2691e 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 20px;
+            height: fit-content;
+        }
+
+        .specs-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .spec-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .spec-item:last-child {
+            border-bottom: none;
+        }
+
+        .spec-item i {
+            font-size: 1.3rem;
+            margin-right: 1rem;
+        }
+
+        /* Location Section */
+        .location-section {
+            padding: 4rem 0;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+
+        .location-content {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .location-content h2 {
+            color: #8b4513;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 300;
+        }
+
+        .location-highlights {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .highlight-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .highlight-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .highlight-card i {
+            font-size: 3rem;
+            color: #8b4513;
+            margin-bottom: 1rem;
+        }
+
+        .highlight-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 4rem 0;
+            background: linear-gradient(135deg, #2c1810 0%, #8b4513 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .contact-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 300;
+        }
+
+        .contact-section p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .contact-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: rgba(255,255,255,0.15);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            border: 1px solid rgba(255,255,255,0.3);
+            transition: all 0.3s ease;
+            font-weight: 500;
+            backdrop-filter: blur(10px);
+        }
+
+        .btn:hover {
+            background: rgba(255,255,255,0.25);
+            transform: translateY(-2px);
+        }
+
+        .btn-primary {
+            background: rgba(255,255,255,0.9);
+            color: #8b4513;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background: white;
+            color: #2c1810;
+        }
+
+        /* Footer */
+        footer {
+            background: #2c1810;
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                grid-template-rows: repeat(5, 200px);
+            }
+
+            .gallery-item:first-child {
+                grid-row: span 1;
+            }
+
+            .details-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            nav li {
+                margin: 0.5rem 0;
+            }
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content fade-in-up">
+                <h1>Piso Exclusivo en el Albaicín</h1>
+                <p>Vive la magia de Granada en el barrio más emblemático</p>
+                <div class="price-tag">
+                    <i class="fas fa-euro-sign"></i> 1.200€/mes
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="#galeria"><i class="fas fa-images"></i> Galería</a></li>
+                <li><a href="#detalles"><i class="fas fa-home"></i> Detalles</a></li>
+                <li><a href="#ubicacion"><i class="fas fa-map-marker-alt"></i> Ubicación</a></li>
+                <li><a href="#contacto"><i class="fas fa-phone"></i> Contacto</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Gallery -->
+    <section id="galeria" class="hero-gallery">
+        <div class="container">
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="https://via.placeholder.com/800x600/d2691e/ffffff?text=Salón+Principal" alt="Salón Principal">
+                    <div class="gallery-overlay">
+                        <h3>Salón con Vistas a la Alhambra</h3>
+                        <p>Amplios ventanales con luz natural</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://via.placeholder.com/400x300/8b4513/ffffff?text=Cocina+Equipada" alt="Cocina">
+                    <div class="gallery-overlay">
+                        <h3>Cocina Completamente Equipada</h3>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://via.placeholder.com/400x300/cd853f/ffffff?text=Dormitorio+Principal" alt="Dormitorio">
+                    <div class="gallery-overlay">
+                        <h3>Dormitorio Principal</h3>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://via.placeholder.com/400x300/daa520/ffffff?text=Baño+Renovado" alt="Baño">
+                    <div class="gallery-overlay">
+                        <h3>Baño Completamente Renovado</h3>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://via.placeholder.com/400x300/b8860b/ffffff?text=Terraza+Privada" alt="Terraza">
+                    <div class="gallery-overlay">
+                        <h3>Terraza con Vistas</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Property Details -->
+    <section id="detalles" class="property-details">
+        <div class="container">
+            <div class="details-grid">
+                <div class="property-description">
+                    <h2>Un Hogar con Historia</h2>
+                    <p>
+                        Descubre este encantador piso en el corazón del Albaicín, el barrio más histórico y pintoresco de Granada. Esta propiedad única combina el encanto tradicional andaluz con todas las comodidades modernas que necesitas.
+                    </p>
+                    <p>
+                        Ubicado en una de las calles más características del Albaicín, este piso te ofrece vistas espectaculares a la Alhambra y al centro histórico de Granada. Sus techos con vigas de madera, suelos de barro cocido y detalles arquitectónicos originales crean un ambiente auténtico y acogedor.
+                    </p>
+                    <p>
+                        La vivienda ha sido cuidadosamente renovada respetando su esencia histórica mientras incorpora todas las comodidades contemporáneas: cocina completamente equipada, baño moderno, calefacción, y una hermosa terraza privada perfecta para disfrutar de las puestas de sol sobre la Alhambra.
+                    </p>
+
+                    <ul class="features-list">
+                        <li><i class="fas fa-check-circle"></i> Completamente amueblado y equipado</li>
+                        <li><i class="fas fa-check-circle"></i> Vistas directas a la Alhambra</li>
+                        <li><i class="fas fa-check-circle"></i> Terraza privada con mobiliario</li>
+                        <li><i class="fas fa-check-circle"></i> Calefacción central</li>
+                        <li><i class="fas fa-check-circle"></i> WiFi de alta velocidad incluido</li>
+                        <li><i class="fas fa-check-circle"></i> Todos los gastos incluidos</li>
+                        <li><i class="fas fa-check-circle"></i> Parking público cercano</li>
+                    </ul>
+                </div>
+
+                <div class="specs-card">
+                    <h3><i class="fas fa-home"></i> Características</h3>
+                    <div class="spec-item">
+                        <span><i class="fas fa-bed"></i> Dormitorios</span>
+                        <strong>2</strong>
+                    </div>
+                    <div class="spec-item">
+                        <span><i class="fas fa-bath"></i> Baños</span>
+                        <strong>1</strong>
+                    </div>
+                    <div class="spec-item">
+                        <span><i class="fas fa-ruler-combined"></i> Superficie</span>
+                        <strong>85 m²</strong>
+                    </div>
+                    <div class="spec-item">
+                        <span><i class="fas fa-calendar-alt"></i> Año</span>
+                        <strong>Reformado 2023</strong>
+                    </div>
+                    <div class="spec-item">
+                        <span><i class="fas fa-building"></i> Planta</span>
+                        <strong>2ª con ascensor</strong>
+                    </div>
+                    <div class="spec-item">
+                        <span><i class="fas fa-thermometer-half"></i> Climatización</span>
+                        <strong>A/A + Calefacción</strong>
+                    </div>
+                    <div class="spec-item">
+                        <span><i class="fas fa-mountain"></i> Orientación</span>
+                        <strong>Sur-Este</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Location Section -->
+    <section id="ubicacion" class="location-section">
+        <div class="container">
+            <div class="location-content">
+                <h2>El Albaicín, Patrimonio de la Humanidad</h2>
+                <p>Vive en el barrio más auténtico de Granada, declarado Patrimonio Mundial por la UNESCO</p>
+            </div>
+
+            <div class="location-highlights">
+                <div class="highlight-card">
+                    <i class="fas fa-monument"></i>
+                    <h3>La Alhambra</h3>
+                    <p>A 10 minutos caminando del monumento más visitado de España</p>
+                </div>
+                <div class="highlight-card">
+                    <i class="fas fa-eye"></i>
+                    <h3>Mirador de San Nicolás</h3>
+                    <p>A 5 minutos del mirador con las mejores vistas de Granada</p>
+                </div>
+                <div class="highlight-card">
+                    <i class="fas fa-utensils"></i>
+                    <h3>Gastronomía Local</h3>
+                    <p>Rodeado de los mejores restaurantes y teterías árabes</p>
+                </div>
+                <div class="highlight-card">
+                    <i class="fas fa-shopping-bag"></i>
+                    <h3>Comercio Tradicional</h3>
+                    <p>Artesanía local, mercados y tiendas tradicionales</p>
+                </div>
+                <div class="highlight-card">
+                    <i class="fas fa-bus"></i>
+                    <h3>Transporte Público</h3>
+                    <p>Conexión directa con el centro y universidad</p>
+                </div>
+                <div class="highlight-card">
+                    <i class="fas fa-tree"></i>
+                    <h3>Entorno Natural</h3>
+                    <p>Acceso directo a rutas de senderismo en Sierra Nevada</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contacto" class="contact-section">
+        <div class="container">
+            <h2>¿Interesado en este Piso?</h2>
+            <p>Contacta conmigo para más información o para concertar una visita</p>
+            <div class="contact-buttons">
+                <a href="tel:+34600000000" class="btn btn-primary">
+                    <i class="fas fa-phone"></i> Llamar Ahora
+                </a>
+                <a href="https://wa.me/34600000000" class="btn">
+                    <i class="fab fa-whatsapp"></i> WhatsApp
+                </a>
+                <a href="mailto:info@example.com" class="btn">
+                    <i class="fas fa-envelope"></i> Email
+                </a>
+                <a href="#" class="btn">
+                    <i class="fas fa-calendar-alt"></i> Agendar Visita
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 - Piso en el Albaicín, Granada. Todos los derechos reservados.</p>
+            <p>📍 Calle del Albaicín, Granada - ✨ Una joya en el corazón de Andalucía</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add scroll effect to navigation
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.style.background = 'rgba(255, 255, 255, 0.95)';
+                nav.style.backdropFilter = 'blur(10px)';
+            } else {
+                nav.style.background = '#fff';
+                nav.style.backdropFilter = 'none';
+            }
+        });
+
+        // Gallery lightbox effect (simple hover enhancement)
+        document.querySelectorAll('.gallery-item').forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.style.boxShadow = '0 10px 30px rgba(139, 69, 19, 0.3)';
+            });
+            
+            item.addEventListener('mouseleave', function() {
+                this.style.boxShadow = 'none';
+            });
+        });
+
+        // Add entrance animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in-up');
+                }
+            });
+        }, observerOptions);
+
+        // Observe sections for animations
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
