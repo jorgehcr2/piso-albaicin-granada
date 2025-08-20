@@ -33,17 +33,22 @@
             overflow: hidden;
         }
 
-        header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('https://casadomu.wordpress.com/wp-content/uploads/2024/06/843e2c33b4494e459bfef591b70b1e65.jpg') center/cover;
-            opacity: 0.87;
-            z-index: 0;
-        }
+      header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    /* Imagen con capa oscura encima */
+    background: 
+        linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), 
+        url('https://casadomu.wordpress.com/wp-content/uploads/2024/06/843e2c33b4494e459bfef591b70b1e65.jpg') center/cover no-repeat;
+
+    z-index: 0;
+}
+
 
         .header-content {
             position: relative;
